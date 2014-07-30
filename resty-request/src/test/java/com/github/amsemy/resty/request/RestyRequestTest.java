@@ -1,7 +1,7 @@
 package com.github.amsemy.resty.request;
 
-import org.junit.Test;
 import com.github.amsemy.resty.request.RestyRequest.*;
+import org.junit.Test;
 import static com.github.amsemy.resty.request.RestyRequest.*;
 import static org.junit.Assert.*;
 

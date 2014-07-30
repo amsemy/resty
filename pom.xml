@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.amsemy.resty</groupId>
-    <artifactId>resty</artifactId>
+    <artifactId>resty-pom</artifactId>
     <version>0.1</version>
     <packaging>pom</packaging>
 
-    <name>Resty</name>
+    <name>Resty package</name>
 
     <modules>
         <module>resty-json</module>

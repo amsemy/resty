@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>com.github.amsemy.resty</groupId>
-        <artifactId>resty</artifactId>
+        <artifactId>resty-pom</artifactId>
         <version>0.1</version>
     </parent>
     <artifactId>resty-json</artifactId>

@@ -9,7 +9,7 @@
     <version>0.1</version>
     <packaging>pom</packaging>
 
-    <name>Reque</name>
+    <name>Resty</name>
 
     <modules>
         <module>resty-json</module>

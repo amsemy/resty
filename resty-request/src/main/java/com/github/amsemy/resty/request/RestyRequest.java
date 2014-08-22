@@ -158,42 +158,6 @@ public class RestyRequest {
         }
 
         /**
-         * Убеждается, что условие истинно. Если условие не выполняется, то
-         * записывается сообщение об ошибке. Если сообщение об обшибке относится
-         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
-         * за имя поля будет взято имя параметра запроса.
-         *
-         * @param  condition
-         *         Проверяемое условие.
-         * @param  param
-         *         Параметр запроса.
-         * @param  message
-         *         Сообщение об ошибке.
-         * @return  Значение параметра {@code check}.
-         * @throws  IllegalArgumentException
-         *          Если невозможно определить к какому полю относится ошибка.
-         */
-        protected boolean assertTrue(Param param, boolean condition,
-                Message message) {
-            if (message == null) {
-                message = defaultI18nMessage(param, null, "assertCheck");
-            } else {
-                if (!(message instanceof CommonMessage)
-                        && message.fieldName == null) {
-                    if (param == null) {
-                        throw new IllegalArgumentException(
-                                "Can't determine field name");
-                    }
-                    message.fieldName = param.paramName;
-                }
-            }
-            if (!condition) {
-                makeInvalid(message);
-            }
-            return condition;
-        }
-
-        /**
          * Убеждается, что значение параметра является Date.
          *
          * @param  paramName
@@ -454,6 +418,81 @@ public class RestyRequest {
                         "assertSize", size.min, size.max);
             }
             return assertTrue(param, checkSize(param, size), message);
+        }
+
+        /**
+         * Убеждается, что условие истинно. Если условие не выполняется, то
+         * записывается сообщение об ошибке. Если сообщение об обшибке относится
+         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
+         * за имя поля будет взято имя параметра запроса.
+         *
+         * @param  condition
+         *         Проверяемое условие.
+         * @param  message
+         *         Сообщение об ошибке.
+         * @return  Значение параметра {@code check}.
+         * @throws  IllegalArgumentException
+         *          Если невозможно определить к какому полю относится ошибка.
+         */
+        protected boolean assertTrue(boolean condition, Message message) {
+            return assertTrue((Param) null, condition, message);
+        }
+
+        /**
+         * Убеждается, что условие истинно. Если условие не выполняется, то
+         * записывается сообщение об ошибке. Если сообщение об обшибке относится
+         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
+         * за имя поля будет взято имя параметра запроса.
+         *
+         * @param  paramName
+         *         Имя параметра запроса.
+         * @param  condition
+         *         Проверяемое условие.
+         * @param  message
+         *         Сообщение об ошибке.
+         * @return  Значение параметра {@code check}.
+         * @throws  IllegalArgumentException
+         *          Если невозможно определить к какому полю относится ошибка.
+         */
+        protected boolean assertTrue(String paramName, boolean condition,
+                Message message) {
+            return assertTrue(param(paramName), condition, message);
+        }
+
+        /**
+         * Убеждается, что условие истинно. Если условие не выполняется, то
+         * записывается сообщение об ошибке. Если сообщение об обшибке относится
+         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
+         * за имя поля будет взято имя параметра запроса.
+         *
+         * @param  param
+         *         Параметр запроса.
+         * @param  condition
+         *         Проверяемое условие.
+         * @param  message
+         *         Сообщение об ошибке.
+         * @return  Значение параметра {@code check}.
+         * @throws  IllegalArgumentException
+         *          Если невозможно определить к какому полю относится ошибка.
+         */
+        protected boolean assertTrue(Param param, boolean condition,
+                Message message) {
+            if (message == null) {
+                message = defaultI18nMessage(param, null, "assertTrue");
+            } else {
+                if (!(message instanceof CommonMessage)
+                        && message.fieldName == null) {
+                    if (param == null) {
+                        throw new IllegalArgumentException(
+                                "Can't determine field name");
+                    }
+                    message.fieldName = param.paramName;
+                }
+            }
+            if (!condition) {
+                makeInvalid(message);
+            }
+            return condition;
         }
 
         private Message defaultI18nMessage(Param param, Message message,

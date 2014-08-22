@@ -135,7 +135,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertBoolean(String paramName, Message message) {
             return assertBoolean(param(paramName), message);
@@ -150,11 +150,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertBoolean(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertBoolean");
-            return assertTrue(param, checkBoolean(param), message);
+            return makeValidation(param, checkBoolean(param), message);
         }
 
         /**
@@ -166,7 +166,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertDate(String paramName, Message message) {
             return assertDate(param(paramName), message);
@@ -181,11 +181,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertDate(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertDate");
-            return assertTrue(param, checkDate(param), message);
+            return makeValidation(param, checkDate(param), message);
         }
 
         /**
@@ -197,7 +197,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertExists(String paramName, Message message) {
             return assertExists(param(paramName), message);
@@ -212,11 +212,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertExists(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertExists");
-            return assertTrue(param, checkExists(param), message);
+            return makeValidation(param, checkExists(param), message);
         }
 
         /**
@@ -228,7 +228,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertFloat(String paramName, Message message) {
             return assertFloat(param(paramName), message);
@@ -243,11 +243,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertFloat(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertFloat");
-            return assertTrue(param, checkFloat(param), message);
+            return makeValidation(param, checkFloat(param), message);
         }
 
         /**
@@ -259,7 +259,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertInteger(String paramName, Message message) {
             return assertInteger(param(paramName), message);
@@ -274,11 +274,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertInteger(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertInteger");
-            return assertTrue(param, checkInteger(param), message);
+            return makeValidation(param, checkInteger(param), message);
         }
 
         /**
@@ -290,7 +290,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertLong(String paramName, Message message) {
             return assertLong(param(paramName), message);
@@ -305,11 +305,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertLong(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertLong");
-            return assertTrue(param, checkLong(param), message);
+            return makeValidation(param, checkLong(param), message);
         }
 
         /**
@@ -322,7 +322,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertNotEmpty(String paramName, Message message) {
             return assertNotEmpty(param(paramName), message);
@@ -338,11 +338,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertNotEmpty(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertNotEmpty");
-            return assertTrue(param, checkNotEmpty(param), message);
+            return makeValidation(param, checkNotEmpty(param), message);
         }
 
         /**
@@ -354,7 +354,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertShort(String paramName, Message message) {
             return assertShort(param(paramName), message);
@@ -369,11 +369,11 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertShort(Param param, Message message) {
             message = defaultI18nMessage(param, message, "assertShort");
-            return assertTrue(param, checkShort(param), message);
+            return makeValidation(param, checkShort(param), message);
         }
 
         /**
@@ -388,7 +388,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertSize(String paramName, Size size,
                 Message message) {
@@ -407,7 +407,7 @@ public class RestyRequest {
          *         Сообщение об ошибке.
          * @return  {@code true}, если проверка успешна.
          *
-         * @see  RestyValidator#assertTrue
+         * @see  RestyValidator#makeValidation
          */
         protected boolean assertSize(Param param, Size size, Message message) {
             if (size.min == 0) {
@@ -417,82 +417,7 @@ public class RestyRequest {
                 message = defaultI18nMessage(param, message,
                         "assertSize", size.min, size.max);
             }
-            return assertTrue(param, checkSize(param, size), message);
-        }
-
-        /**
-         * Убеждается, что условие истинно. Если условие не выполняется, то
-         * записывается сообщение об ошибке. Если сообщение об обшибке относится
-         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
-         * за имя поля будет взято имя параметра запроса.
-         *
-         * @param  condition
-         *         Проверяемое условие.
-         * @param  message
-         *         Сообщение об ошибке.
-         * @return  Значение параметра {@code check}.
-         * @throws  IllegalArgumentException
-         *          Если невозможно определить к какому полю относится ошибка.
-         */
-        protected boolean assertTrue(boolean condition, Message message) {
-            return assertTrue((Param) null, condition, message);
-        }
-
-        /**
-         * Убеждается, что условие истинно. Если условие не выполняется, то
-         * записывается сообщение об ошибке. Если сообщение об обшибке относится
-         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
-         * за имя поля будет взято имя параметра запроса.
-         *
-         * @param  paramName
-         *         Имя параметра запроса.
-         * @param  condition
-         *         Проверяемое условие.
-         * @param  message
-         *         Сообщение об ошибке.
-         * @return  Значение параметра {@code check}.
-         * @throws  IllegalArgumentException
-         *          Если невозможно определить к какому полю относится ошибка.
-         */
-        protected boolean assertTrue(String paramName, boolean condition,
-                Message message) {
-            return assertTrue(param(paramName), condition, message);
-        }
-
-        /**
-         * Убеждается, что условие истинно. Если условие не выполняется, то
-         * записывается сообщение об ошибке. Если сообщение об обшибке относится
-         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
-         * за имя поля будет взято имя параметра запроса.
-         *
-         * @param  param
-         *         Параметр запроса.
-         * @param  condition
-         *         Проверяемое условие.
-         * @param  message
-         *         Сообщение об ошибке.
-         * @return  Значение параметра {@code check}.
-         * @throws  IllegalArgumentException
-         *          Если невозможно определить к какому полю относится ошибка.
-         */
-        protected boolean assertTrue(Param param, boolean condition,
-                Message message) {
-            if (message == null) {
-                message = defaultI18nMessage(param, null, "assertTrue");
-            } else {
-                if (!(message instanceof CommonMessage)
-                        && message.fieldName == null) {
-                    if (param == null) {
-                        throw new IllegalArgumentException(
-                                "Can't determine field name");
-                    }
-                    message.fieldName = param.paramName;
-                }
-            }
-            if (!condition) {
-                makeInvalid(message);
-            }
-            return condition;
+            return makeValidation(param, checkSize(param, size), message);
         }
 
         private Message defaultI18nMessage(Param param, Message message,
@@ -528,21 +453,60 @@ public class RestyRequest {
         }
 
         /**
-         * Делает запрос невалидным и добавляет ошибку в список.
+         * Убеждается, что условие истинно. Если условие не выполняется, то
+         * записывается сообщение об ошибке.
          *
+         * @param  condition
+         *         Проверяемое условие.
          * @param  message
          *         Сообщение об ошибке.
+         * @return  Значение параметра {@code condition}.
          * @throws  IllegalArgumentException
-         *          Если сообщение относится к полю и имя поля равно
-         *          {@code null}.
+         *          Если невозможно определить к какому полю относится ошибка.
          */
-        protected void makeInvalid(Message message) {
-            if (!(message instanceof CommonMessage)
-                    && message.fieldName == null) {
+        protected boolean makeValidation(boolean condition, Message message) {
+            if (message == null) {
                 throw new IllegalArgumentException(
-                        "Field name mustn't be null for field messages");
+                        "Can't determine field name");
             }
-            valResult.addError(fieldPath(message.fieldName), message.errorDesc);
+            return makeValidation(null, condition, message);
+        }
+
+        /**
+         * Убеждается, что условие истинно. Если условие не выполняется, то
+         * записывается сообщение об ошибке. Если сообщение об обшибке относится
+         * к полю и имя поля, к которому относится ошибка равно {@code null}, то
+         * за имя поля будет взято имя параметра запроса.
+         *
+         * @param  param
+         *         Параметр запроса.
+         * @param  condition
+         *         Проверяемое условие.
+         * @param  message
+         *         Сообщение об ошибке.
+         * @return  Значение параметра {@code condition}.
+         * @throws  IllegalArgumentException
+         *          Если невозможно определить к какому полю относится ошибка.
+         */
+        protected boolean makeValidation(Param param, boolean condition,
+                Message message) {
+            if (!condition) {
+                if (message == null) {
+                    message = defaultI18nMessage(param, null, "assertTrue");
+                } else {
+                    if (!(message instanceof CommonMessage)
+                            && message.fieldName == null) {
+                        if (param == null) {
+                            throw new IllegalArgumentException(
+                                    "Can't determine field name");
+                        }
+                        message.fieldName = param.paramName;
+                    }
+                }
+                valResult.addError(fieldPath(message.fieldName),
+                        message.errorDesc);
+            }
+            return condition;
         }
 
     }
@@ -1147,7 +1111,8 @@ public class RestyRequest {
     }
 
     /**
-     * Обёртка для создания сообщения об ошибке, относящегося к полю.
+     * Обёртка для создания сообщения об ошибке, относящегося к полю. Ошибка
+     * записывается с указанным именем поля.
      *
      * @param  fieldName
      *         Имя поля, к которому относится сообщение.

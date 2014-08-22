@@ -1068,134 +1068,6 @@ public class RestyRequestTest {
     }
 
     @Test
-    public void testRestyValidatorTest$AssertTrue_boolean_Message() {
-        RestyParams params = getBaseSetOfParams();
-        RestyRequest req = new RestyRequest(params);
-
-        Map<String, Object> expected = new HashMap<>();
-
-        req.new RestyValidator(Locale.ENGLISH) {
-
-            {
-                this.assertTrue(true, null);
-                this.assertTrue(true, commonMessage("commonErr"));
-                this.assertTrue(true, message("t1", "errT1"));
-            }
-
-        };
-
-        assertTrue(req.isValid());
-        assertEquals(expected, req.getErrors());
-
-        RestyValidationResult result = new RestyValidationResult();
-        result.addError(new String[] { "a" }, "errA");
-        result.addError(null, "Invalid value");
-        result.addError(null, "commonErr");
-        expected = result.getErrors();
-
-        req.new RestyValidator(Locale.ENGLISH) {
-
-            {
-                this.assertTrue(false, null);
-                this.assertTrue(false, commonMessage("commonErr"));
-                this.assertTrue(false, message("a", "errA"));
-            }
-
-        };
-
-        assertFalse(req.isValid());
-        assertEquals(expected, req.getErrors());
-    }
-
-    @Test
-    public void testRestyValidatorTest$AssertTrue_String_boolean_Message() {
-        RestyParams params = getBaseSetOfParams();
-        RestyRequest req = new RestyRequest(params);
-
-        Map<String, Object> expected = new HashMap<>();
-
-        req.new RestyValidator(Locale.ENGLISH) {
-
-            {
-                this.assertTrue("t2", true, message("errT2"));
-            }
-
-        };
-
-        assertTrue(req.isValid());
-        assertEquals(expected, req.getErrors());
-
-        RestyValidationResult result = new RestyValidationResult();
-        result.addError(new String[] { "a" }, "errA");
-        result.addError(new String[] { "fldB" }, "errB");
-        result.addError(null, "err1");
-        expected = result.getErrors();
-
-        req.new RestyValidator(Locale.ENGLISH) {
-
-            {
-                this.assertTrue(param("a"), false, message("errA"));
-                this.assertTrue(param("b"), false, message("fldB", "errB"));
-                this.assertTrue(param("c"), false, commonMessage("err1"));
-            }
-
-        };
-
-        assertFalse(req.isValid());
-        assertEquals(expected, req.getErrors());
-    }
-
-    @Test
-    public void testRestyValidatorTest$AssertTrue_Param_boolean_Message() {
-        RestyParams params = getBaseSetOfParams();
-        RestyRequest req = new RestyRequest(params);
-
-        Map<String, Object> expected = new HashMap<>();
-
-        req.new RestyValidator(Locale.ENGLISH) {
-
-            {
-                this.assertTrue((Param) null, true, null);
-                this.assertTrue((Param) null, true, commonMessage("commonErr"));
-                this.assertTrue((Param) null, true, message("t1", "errT1"));
-                this.assertTrue(param("t2"), true, message("errT2"));
-            }
-
-        };
-
-        assertTrue(req.isValid());
-        assertEquals(expected, req.getErrors());
-
-        RestyValidationResult result = new RestyValidationResult();
-        result.addError(new String[] { "a" }, "errA0");
-        result.addError(new String[] { "a" }, "errA25");
-        result.addError(new String[] { "fldB" }, "errB0");
-        result.addError(new String[] { "fldB" }, "errB44");
-        result.addError(null, "err1");
-        result.addError(null, "err2");
-        result.addError(null, "err3");
-        expected = result.getErrors();
-
-        req.new RestyValidator(Locale.ENGLISH) {
-
-            {
-                this.assertTrue(param("a"), false, message("errA0"));
-                this.assertTrue(param("a", 25), false, message("errA25"));
-                this.assertTrue(param("b"), false, message("fldB", "errB0"));
-                this.assertTrue(param("b", 44), false,
-                        message("fldB", "errB44"));
-                this.assertTrue((Param) null, false, commonMessage("err1"));
-                this.assertTrue(param("c"), false, commonMessage("err2"));
-                this.assertTrue(param("c", 1), false, commonMessage("err3"));
-            }
-
-        };
-
-        assertFalse(req.isValid());
-        assertEquals(expected, req.getErrors());
-    }
-
-    @Test
     public void testRestyValidatorTest$I18n() {
         RestyParams params = getBaseSetOfParams();
         RestyRequest req = new RestyRequest(params);
@@ -1254,7 +1126,7 @@ public class RestyRequestTest {
     }
 
     @Test
-    public void testRestyValidatorTest$MakeInvalid() {
+    public void testRestyValidatorTest$MakeValidation() {
         RestyParams params = getBaseSetOfParams();
         RestyRequest req = new RestyRequest(params);
 
@@ -1262,7 +1134,7 @@ public class RestyRequestTest {
             req.new RestyValidator(Locale.ENGLISH) {
 
                 {
-                    makeInvalid(message(null, "errNull"));
+                    makeValidation(null, false, message(null, "errNull"));
                     fail();
                 }
 
@@ -1270,26 +1142,47 @@ public class RestyRequestTest {
         } catch (Exception ex) {
         }
 
-        RestyValidationResult result = new RestyValidationResult();
-        result.addError(new String[] { "a" }, "errA");
-        result.addError(new String[] { "a" }, "errA");
-        result.addError(new String[] { "b0" }, "errB0");
-        result.addError(new String[] { "b1" }, "errB1");
-        result.addError(null, "errC0");
-        result.addError(null, "errC1");
-        Map<String, Object> expected = result.getErrors();
+        Map<String, Object> expected = new HashMap<>();
 
         req.new RestyValidator(Locale.ENGLISH) {
 
             {
-                makeInvalid(message("a", "errA"));
-                makeInvalid(message("a", "errA"));
+                makeValidation(null, true, null);
+                makeValidation(null, true, message(null, "errNull"));
+                makeValidation(null, true, message("a", "errA"));
+                makeValidation(null, true, commonMessage("commonErr"));
+                makeValidation(param("b"), true, message("errB"));
+            }
 
-                makeInvalid(message("b0", "errB0"));
-                makeInvalid(message("b1", "errB1"));
+        };
 
-                makeInvalid(commonMessage("errC0"));
-                makeInvalid(commonMessage("errC1"));
+        assertTrue(req.isValid());
+        assertEquals(expected, req.getErrors());
+
+        RestyValidationResult result = new RestyValidationResult();
+        result.addError(new String[] { "a" }, "errA");
+        result.addError(new String[] { "a" }, "errA");
+        result.addError(new String[] { "b" }, "errB0");
+        result.addError(new String[] { "b" }, "errB25");
+        result.addError(new String[] { "fldC" }, "errC0");
+        result.addError(new String[] { "fldC" }, "errC4");
+        result.addError(null, "err1");
+        result.addError(null, "err2");
+        result.addError(null, "err3");
+        expected = result.getErrors();
+
+        req.new RestyValidator(Locale.ENGLISH) {
+
+            {
+                makeValidation(param("a"), false, message("errA"));
+                makeValidation(param("a"), false, message("errA"));
+                makeValidation(param("b"), false, message("errB0"));
+                makeValidation(param("b", 25), false, message("errB25"));
+                makeValidation(param("c"), false, message("fldC", "errC0"));
+                makeValidation(param("c", 4), false, message("fldC", "errC4"));
+                makeValidation(null, false, commonMessage("err1"));
+                makeValidation(param("_"), false, commonMessage("err2"));
+                makeValidation(param("_", 1), false, commonMessage("err3"));
             }
 
         };

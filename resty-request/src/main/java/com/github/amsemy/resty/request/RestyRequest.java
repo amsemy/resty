@@ -492,7 +492,7 @@ public class RestyRequest {
                 Message message) {
             if (!condition) {
                 if (message == null) {
-                    message = defaultI18nMessage(param, null, "assertTrue");
+                    message = defaultI18nMessage(param, null, "makeValidation");
                 } else {
                     if (!(message instanceof CommonMessage)
                             && message.fieldName == null) {

@@ -3,10 +3,13 @@ package com.github.amsemy.resty.request;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * Запрос к ресурсу.
@@ -977,6 +980,27 @@ public class RestyRequest {
         String value = getString(paramName, index);
         return (value == null || value.isEmpty()
                 ? null : strToLong(value));
+    }
+
+    /**
+     * Возвращает список имён параметров запроса.
+     *
+     * @return  Список имён параметров запроса.
+     */
+    public Set<String> getParameterNames() {
+        if (paramPath == null) {
+            return params.keySet();
+        } else {
+            Set<String> names = new HashSet<>();
+            for (String key : params.keySet()) {
+                if (!key.equals(paramPath) && key.startsWith(paramPath)) {
+                    String name = key.substring(paramPath.length());
+                    int i = name.indexOf("]");
+                    names.add(name.substring(1, i) + name.substring(i + 1));
+                }
+            }
+            return names;
+        }
     }
 
     /**

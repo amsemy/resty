@@ -7,9 +7,11 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ListResourceBundle;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("EmptyCatchBlock")
 public class RestyRequestTest {
@@ -1829,6 +1831,40 @@ public class RestyRequestTest {
             req.getLong("b", 0);
         } catch (IllegalArgumentException ex) {
         }
+    }
+
+    @Test
+    public void testGetParameterNames() {
+        RestyParams params = RestyParams.buildEmptyParams();
+        params.add("sub[a]", "valueA0");
+        params.add("sub[b]", "valueB0");
+        params.add("sub[b]", "valueB1");
+        params.add("sub[b][c]", "valueC0");
+
+        Set<String> parentKeys = new HashSet<>();
+        parentKeys.add("sub[a]");
+        parentKeys.add("sub[b]");
+        parentKeys.add("sub[b][c]");
+
+        RestyRequest req = new RestyRequest(params);
+
+        assertEquals(parentKeys, req.getParameterNames());
+
+        parentKeys = new HashSet<>();
+        parentKeys.add("a");
+        parentKeys.add("b");
+        parentKeys.add("b[c]");
+
+        RestyRequest sub = new RestyRequest(req, "sub");
+
+        assertEquals(parentKeys, sub.getParameterNames());
+
+        parentKeys = new HashSet<>();
+        parentKeys.add("c");
+
+        RestyRequest b = new RestyRequest(sub, "b");
+
+        assertEquals(parentKeys, b.getParameterNames());
     }
 
     @Test
